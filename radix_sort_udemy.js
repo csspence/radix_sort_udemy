@@ -28,6 +28,26 @@ const maxDigitCount = (nums) => {
   return max;
 }
 
+const getDigit = (num, place) => {
+  let numStr = num.toString();
+  let numArr = numStr.split('');
+  numArr.reverse();
+  numStr = numArr.join('');
+
+  return Number(numStr[place]);
+}
+
 const radixSort = (nums) => {
-  
+  let max = maxDigitCount(nums);
+  for(let k = 0; k < max; k++) {
+    let tempArr = Array.from({length: 10}, () => []);
+    for(let i = 0; i < nums.length; i++) {
+      let digit = getDigit(nums[i], k);
+      console.log(digit)
+      tempArr[digit].push(nums[i]);
+    }
+    nums = [].concat(...tempArr);
+  }
+
+  return nums;
 }
